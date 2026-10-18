@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>IDB worker probe</title></head>
+<body><pre id="status">start
+start indexedDB=object
+timeout</pre><script>
+const status = document.getElementById('status');
+const worker = new Worker('/idb_worker_probe.js');
+worker.onmessage = e => status.textContent += `\n${e.data}`;
+worker.onerror = e => status.textContent += `\nworker error ${e.message}`;
+setTimeout(() => status.textContent += '\ntimeout', 5000);
+</script>
+</body></html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>IndexedDB worker diagnostic</title></head>
+<body>
+  <pre id="status">Starting dedicated worker…
+timeout</pre>
+  <script>
+    const status = document.getElementById('status');
+    const worker = new Worker('/drift_worker_indexeddb.js');
+    worker.onmessage = event => {
+      status.textContent += `\nmessage: ${JSON.stringify(event.data)}`;
+    };
+    worker.onerror = event => {
+      status.textContent += `\nerror: ${event.message} at ${event.filename}:${event.lineno}`;
+    };
+    worker.postMessage({type: 'RequestCompatibilityCheck', payload: 'wm_worker_indexeddb_diag'});
+    setTimeout(() => status.textContent += '\ntimeout', 5000);
+  </script>
+
+
+</body></html>

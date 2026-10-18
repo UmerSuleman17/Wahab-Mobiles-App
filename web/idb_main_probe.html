@@ -1,0 +1,21 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Main IDB probe</title></head>
+<body><pre id="status">start</pre><script>
+const status = document.getElementById('status');
+status.textContent += `\nindexedDB=${typeof indexedDB}`;
+try {
+  const request = indexedDB.open('wm_app_idb_main_probe', 1);
+  request.onupgradeneeded = () => status.textContent += '\nupgrade';
+  request.onsuccess = () => {
+    const database = request.result;
+    database.close();
+    indexedDB.deleteDatabase('wm_app_idb_main_probe');
+    status.textContent += '\nsuccess';
+  };
+  request.onerror = () => status.textContent += `\nerror ${request.error}`;
+  request.onblocked = () => status.textContent += '\nblocked';
+} catch (error) {
+  status.textContent += `\nthrow ${error}`;
+}
+setTimeout(() => status.textContent += '\ntimeout', 5000);
+</script></body></html>

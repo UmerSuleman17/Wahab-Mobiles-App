@@ -1,0 +1,2 @@
+[22456:27140:1015/235511.180:INFO:components\enterprise\browser\controller\chrome_browser_cloud_management_controller.cc:241] No machine level policy manager exists.
+[22456:27140:1015/235511.637:WARNING:chrome\browser\extensions\external_registry_loader_win.cc:236] Error observing HKLM: Access is denied. (0x5)

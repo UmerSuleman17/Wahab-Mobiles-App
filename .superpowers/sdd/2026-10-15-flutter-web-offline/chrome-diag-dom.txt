@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>WM_APP persistence smoke</title></head>
+<body>
+  <h1>WM_APP browser storage smoke test</h1>
+  <p id="status" class="failed">FAIL: TimeoutException after 0:00:15.000000: Future not completed</p>
+  <script defer="" src="database_persistence_smoke.dart.js"></script>
+
+
+</body></html>

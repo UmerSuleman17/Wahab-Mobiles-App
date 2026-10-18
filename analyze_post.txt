@@ -1,0 +1,55 @@
+﻿Analyzing lib...
+
+  error - core\routing\app_router.dart:15:8 - Target of URI doesn't exist: 'package:wm_app/features/inventory/presentation/stock_in_screen.dart'. Try creating the file referenced by the URI, or try using a URI for a file that does exist. - uri_does_not_exist
+  error - core\routing\app_router.dart:16:8 - Target of URI doesn't exist: 'package:wm_app/features/inventory/presentation/stock_out_screen.dart'. Try creating the file referenced by the URI, or try using a URI for a file that does exist. - uri_does_not_exist
+  error - core\routing\app_router.dart:126:38 - The function 'StockInScreen' isn't defined. Try importing the library that defines 'StockInScreen', correcting the name to the name of an existing function, or defining a function named 'StockInScreen'. - undefined_function
+  error - core\routing\app_router.dart:132:38 - The function 'StockOutScreen' isn't defined. Try importing the library that defines 'StockOutScreen', correcting the name to the name of an existing function, or defining a function named 'StockOutScreen'. - undefined_function
+  error - core\routing\app_router.dart:260:44 - The name 'WhatsAppSettingsScreen' isn't a class. Try correcting the name to match an existing class. - creation_with_non_type
+  error - features\cash\presentation\daily_cash_screen.dart:42:78 - The named parameter 'isBold' isn't defined. Try correcting the name to an existing named parameter's name, or defining a named parameter with the name 'isBold'. - undefined_named_parameter
+  error - features\dashboard\presentation\dashboard_screen.dart:121:41 - The getter 'primary' isn't defined for the type 'AppColors'. Try importing the library that defines 'primary', correcting the name to the name of an existing getter, or defining a getter or field named 'primary'. - undefined_getter
+  error - features\scanner\presentation\scanner_screen.dart:62:49 - The getter 'torchState' isn't defined for the type 'MobileScannerController'. Try importing the library that defines 'torchState', correcting the name to the name of an existing getter, or defining a getter or field named 'torchState'. - undefined_getter
+  error - features\scanner\presentation\scanner_screen.dart:63:48 - The body might complete normally, causing 'null' to be returned, but the return type, 'Widget', is a potentially non-nullable type. Try adding either a return or a throw statement at the end. - body_might_complete_normally
+  error - features\setup\presentation\setup_wizard_screen.dart:114:48 - Invalid constant value. - invalid_constant
+  error - features\setup\presentation\setup_wizard_screen.dart:114:58 - The getter 'primary' isn't defined for the type 'AppColors'. Try importing the library that defines 'primary', correcting the name to the name of an existing getter, or defining a getter or field named 'primary'. - undefined_getter
+warning - app.dart:3:8 - Unused import: 'package:go_router/go_router.dart'. Try removing the import directive. - unused_import
+warning - core\providers\service_providers.dart:5:8 - Unused import: 'package:wm_app/core/providers/repository_providers.dart'. Try removing the import directive. - unused_import
+warning - core\routing\app_router.dart:42:8 - Unused import: 'package:wm_app/features/settings/presentation/whatsapp_settings_screen.dart'. Try removing the import directive. - unused_import
+warning - core\widgets\app_scaffold.dart:4:8 - Unused import: 'package:wm_app/core/theme/app_colors.dart'. Try removing the import directive. - unused_import
+warning - data\repositories\business_repository.dart:4:8 - Unused import: 'package:wm_app/core/database/tables/business_table.dart'. Try removing the import directive. - unused_import
+warning - data\repositories\product_repository.dart:4:8 - Unused import: 'package:wm_app/core/database/tables/products_table.dart'. Try removing the import directive. - unused_import
+warning - data\repositories\settings_repository.dart:1:8 - Unused import: 'package:drift/drift.dart'. Try removing the import directive. - unused_import
+warning - features\reports\presentation\reports_screen.dart:4:8 - Unused import: 'package:wm_app/core/theme/app_colors.dart'. Try removing the import directive. - unused_import
+warning - services\backup_service.dart:11:21 - The value of the field '_db' isn't used. Try removing the field, or using it. - unused_field
+warning - services\inventory_service.dart:1:8 - Unused import: 'package:drift/drift.dart'. Try removing the import directive. - unused_import
+warning - services\reminder_service.dart:11:25 - The value of the field '_whatsApp' isn't used. Try removing the field, or using it. - unused_field
+   info - core\constants\enums.dart:1:1 - Dangling library doc comment. Add a 'library' directive after the library comment. - dangling_library_doc_comments
+   info - core\errors\app_exception.dart:1:1 - Dangling library doc comment. Add a 'library' directive after the library comment. - dangling_library_doc_comments
+   info - core\errors\failure.dart:1:1 - Dangling library doc comment. Add a 'library' directive after the library comment. - dangling_library_doc_comments
+   info - core\widgets\summary_card.dart:47:21 - Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation. - prefer_const_constructors
+   info - data\repositories\business_repository.dart:54:30 - Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation. - prefer_const_constructors
+   info - features\cash\presentation\cash_close_screen.dart:13:10 - The private field _expectedAmount could be 'final'. Try making the field 'final'. - prefer_final_fields
+   info - features\cash\presentation\daily_cash_screen.dart:54:24 - Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation. - prefer_const_constructors
+   info - features\customers\presentation\customer_detail_screen.dart:57:48 - Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation. - prefer_const_constructors
+   info - features\customers\presentation\customer_detail_screen.dart:69:48 - Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation. - prefer_const_constructors
+   info - features\expenses\presentation\expense_list_screen.dart:28:24 - Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation. - prefer_const_constructors
+   info - features\inventory\presentation\inventory_screen.dart:45:29 - Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation. - prefer_const_constructors
+   info - features\products\presentation\product_list_screen.dart:24:11 - Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation. - prefer_const_constructors
+   info - features\products\presentation\product_list_screen.dart:26:20 - Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation. - prefer_const_constructors
+   info - features\receipts\presentation\receipt_detail_screen.dart:38:17 - Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation. - prefer_const_constructors
+   info - features\receipts\presentation\receipt_detail_screen.dart:40:29 - Use 'const' literals as arguments to constructors of '@immutable' classes. Try adding 'const' before the literal. - prefer_const_literals_to_create_immutables
+   info - features\reports\presentation\report_detail_screen.dart:10:20 - Use interpolation to compose strings and values. Try using string interpolation to build the composite string. - prefer_interpolation_to_compose_strings
+   info - features\reports\presentation\report_detail_screen.dart:33:11 - Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation. - prefer_const_constructors
+   info - features\reports\presentation\report_detail_screen.dart:35:20 - Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation. - prefer_const_constructors
+   info - features\reports\presentation\report_detail_screen.dart:36:25 - Use 'const' literals as arguments to constructors of '@immutable' classes. Try adding 'const' before the literal. - prefer_const_literals_to_create_immutables
+   info - features\reports\presentation\report_detail_screen.dart:37:17 - Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation. - prefer_const_constructors
+   info - features\reports\presentation\report_detail_screen.dart:38:26 - Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation. - prefer_const_constructors
+   info - features\reports\presentation\report_detail_screen.dart:39:28 - Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation. - prefer_const_constructors
+   info - features\reports\presentation\report_detail_screen.dart:41:30 - Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation. - prefer_const_constructors
+   info - features\reports\presentation\report_detail_screen.dart:67:21 - Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation. - prefer_const_constructors
+   info - features\reports\presentation\report_detail_screen.dart:67:30 - Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation. - prefer_const_constructors
+   info - features\sales\presentation\create_sale_screen.dart:30:29 - Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation. - prefer_const_constructors
+   info - features\setup\presentation\setup_wizard_screen.dart:199:27 - Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation. - prefer_const_constructors
+   info - features\setup\presentation\setup_wizard_screen.dart:200:16 - Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation. - prefer_const_constructors
+   info - features\suppliers\presentation\supplier_detail_screen.dart:52:48 - Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation. - prefer_const_constructors
+
+51 issues found.

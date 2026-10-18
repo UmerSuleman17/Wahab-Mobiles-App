@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>Drift worker diagnostic</title></head>
+<body>
+  <pre id="status">Starting worker diagnostics…
+shared message: {"type":"SharedWorkerCompatibilityResult","payload":[false,false,true,false,false,[],2]}
+dedicated message: {"type":"DedicatedWorkerCompatibilityResult","payload":{"supportsNestedWorkers":true,"canAccessOpfs":true,"supportsIndexedDb":true,"supportsSharedArrayBuffers":false,"indexedDbExists":false,"opfsExists":false,"existing":[],"v":2}}
+diagnostic timeout</pre>
+  <script>
+    const status = document.getElementById('status');
+    async function report(message) {
+      status.textContent += `\n${message}`;
+      try { await fetch('/result', { method: 'POST', body: message }); } catch (_) {}
+    }
+    const request = { type: 'RequestCompatibilityCheck', payload: 'wm_worker_diag' };
+    const dedicated = new Worker('/drift_worker.dart.js');
+    dedicated.onmessage = event => report(`dedicated message: ${JSON.stringify(event.data)}`);
+    dedicated.onerror = event => report(`dedicated error: ${event.message} at ${event.filename}:${event.lineno}`);
+    dedicated.postMessage(request);
+    try {
+      const shared = new SharedWorker('/drift_worker.dart.js', 'drift worker diagnostic');
+      shared.port.onmessage = event => report(`shared message: ${JSON.stringify(event.data)}`);
+      shared.port.onmessageerror = event => report(`shared message error: ${event.type}`);
+      shared.onerror = event => report(`shared error: ${event.message || event.type}`);
+      shared.port.start();
+      shared.port.postMessage(request);
+    } catch (error) {
+      report(`shared creation error: ${error}`);
+    }
+    setTimeout(() => report('diagnostic timeout'), 5000);
+  </script>
+
+
+</body></html>

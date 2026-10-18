@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>WM_APP persistence smoke</title></head>
+<body>
+  <h1>WM_APP browser storage smoke test</h1>
+  <p id="status">Smoke script loaded; probing browser storage…</p>
+  <script>
+    const status = document.getElementById('status');
+    const trace = new BroadcastChannel('drift-worker-diagnostics');
+    trace.onmessage = event => {
+      status.textContent += `\nTRACE: ${event.data}`;
+      fetch('/result', { method: 'POST', body: status.textContent }).catch(() => {});
+    };
+    window.addEventListener('error', event => {
+      status.textContent += `\nWINDOW ERROR: ${event.message}`;
+    });
+    window.addEventListener('unhandledrejection', event => {
+      status.textContent += `\nUNHANDLED REJECTION: ${event.reason}`;
+    });
+  </script>
+  <script defer="" src="database_persistence_smoke.dart.js"></script>
+
+
+</body></html>

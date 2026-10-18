@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>WM_APP persistence smoke</title></head>
+<body>
+  <h1>WM_APP browser storage smoke test</h1>
+  <p id="status">Smoke script loaded; probing browser storage…</p>
+  <pre id="trace">
+new SharedWorker: http://127.0.0.1:8081/drift_worker.dart.js
+shared port postMessage: {"type":"RequestCompatibilityCheck","payload":"wm_app_web_persistence_smoke_20261015"}
+shared port listener attached: message</pre>
+  <script>
+    const status = document.getElementById('status');
+    const traceOutput = document.getElementById('trace');
+    function traceMessage(message) {
+      traceOutput.textContent += `\n${message}`;
+      fetch('/result', { method: 'POST', body: traceOutput.textContent }).catch(() => {});
+    }
+    const trace = new BroadcastChannel('drift-worker-diagnostics');
+    trace.onmessage = event => traceMessage(`worker trace: ${event.data}`);
+    function instrumentTarget(target, label) {
+      const add = target.addEventListener;
+      target.addEventListener = function (type, listener, options) {
+        if (type !== 'message' && type !== 'error') {
+          return add.call(this, type, listener, options);
+        }
+        traceMessage(`${label} listener attached: ${type}`);
+        return add.call(this, type, function (event) {
+          traceMessage(`${label} event: ${type} ${JSON.stringify(event.data ?? event.message ?? '')}`);
+          return listener.call(this, event);
+        }, options);
+      };
+      if (typeof target.postMessage === 'function') {
+        const post = target.postMessage;
+        target.postMessage = function (data, transfer) {
+          traceMessage(`${label} postMessage: ${JSON.stringify(data)}`);
+          return post.call(this, data, transfer);
+        };
+      }
+    }
+    const NativeWorker = window.Worker;
+    window.Worker = new Proxy(NativeWorker, {
+      construct(target, args) {
+        traceMessage(`new Worker: ${args[0]}`);
+        const instance = Reflect.construct(target, args);
+        instrumentTarget(instance, 'dedicated worker');
+        return instance;
+      }
+    });
+    const NativeSharedWorker = window.SharedWorker;
+    window.SharedWorker = new Proxy(NativeSharedWorker, {
+      construct(target, args) {
+        traceMessage(`new SharedWorker: ${args[0]}`);
+        const instance = Reflect.construct(target, args);
+        instrumentTarget(instance.port, 'shared port');
+        return instance;
+      }
+    });
+    window.addEventListener('error', event => {
+      status.textContent += `\nWINDOW ERROR: ${event.message}`;
+    });
+    window.addEventListener('unhandledrejection', event => {
+      status.textContent += `\nUNHANDLED REJECTION: ${event.reason}`;
+    });
+  </script>
+  <script defer="" src="database_persistence_smoke.dart.js"></script>
+
+
+</body></html>

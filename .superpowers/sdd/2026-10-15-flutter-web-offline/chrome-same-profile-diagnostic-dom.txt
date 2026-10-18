@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>Worker bootstrap diagnostic</title></head>
+<body>
+  <pre id="status">Loading instrumented workers…
+TRACE: SharedWorkerGlobalScope: worker received connect: unknown
+TRACE: DedicatedWorkerGlobalScope: worker received message: RequestCompatibilityCheck
+TRACE: SharedWorkerGlobalScope: port received message: RequestCompatibilityCheck
+TRACE: SharedWorkerGlobalScope: port posting SharedWorkerCompatibilityResult
+TRACE: DedicatedWorkerGlobalScope: worker posting DedicatedWorkerCompatibilityResult
+shared message: {"type":"SharedWorkerCompatibilityResult","payload":[false,false,true,false,false,[],2]}
+dedicated message: {"type":"DedicatedWorkerCompatibilityResult","payload":{"supportsNestedWorkers":true,"canAccessOpfs":true,"supportsIndexedDb":true,"supportsSharedArrayBuffers":false,"indexedDbExists":false,"opfsExists":false,"existing":[],"v":2}}
+diagnostic timeout</pre>
+  <script>
+    const status = document.getElementById('status');
+    function report(message) {
+      status.textContent += `\n${message}`;
+      fetch('/result', { method: 'POST', body: status.textContent }).catch(() => {});
+    }
+    const trace = new BroadcastChannel('drift-worker-diagnostics');
+    trace.onmessage = event => report(`TRACE: ${event.data}`);
+    const request = {
+      type: 'RequestCompatibilityCheck',
+      payload: 'wm_app_web_persistence_smoke_20261015'
+    };
+    const dedicated = new Worker('/worker_bootstrap.js');
+    dedicated.onmessage = event => report(`dedicated message: ${JSON.stringify(event.data)}`);
+    dedicated.onerror = event => report(`dedicated error: ${event.message} at ${event.filename}:${event.lineno}`);
+    dedicated.postMessage(request);
+    const shared = new SharedWorker('/worker_bootstrap.js', 'drift worker bootstrap diagnostic');
+    shared.port.onmessage = event => report(`shared message: ${JSON.stringify(event.data)}`);
+    shared.onerror = event => report(`shared error: ${event.message || event.type}`);
+    shared.port.start();
+    shared.port.postMessage(request);
+    setTimeout(() => report('diagnostic timeout'), 5000);
+  </script>
+
+
+</body></html>

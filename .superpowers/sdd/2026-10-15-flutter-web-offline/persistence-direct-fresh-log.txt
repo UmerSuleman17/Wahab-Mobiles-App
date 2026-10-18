@@ -1,0 +1,4 @@
+[27176:19788:1015/235428.125:INFO:components\enterprise\browser\controller\chrome_browser_cloud_management_controller.cc:241] No machine level policy manager exists.
+[27176:19788:1015/235428.542:WARNING:chrome\browser\extensions\external_registry_loader_win.cc:236] Error observing HKLM: Access is denied. (0x5)
+[27176:19788:1015/235429.426:INFO:CONSOLE:4482] "TimeoutException after 0:00:15.000000: Future not completed
+", source: http://127.0.0.1:8080/database_persistence_smoke.dart.js (4482)

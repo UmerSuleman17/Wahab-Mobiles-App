@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>WM_APP persistence smoke</title></head>
+<body>
+  <h1>WM_APP browser storage smoke test</h1>
+  <p id="status">Smoke script loaded; opening persistent IndexedDB…
+Loading sqlite3.wasm…
+Opening browser IndexedDB…
+Registering SQLite VFS…
+SQLite VFS registered; building Drift executor…
+Constructing AppDatabase…
+AppDatabase constructed.
+Opened IndexedDB; creating test table…</p>
+  <pre id="trace"></pre>
+  <script>
+    const status = document.getElementById('status');
+    const traceOutput = document.getElementById('trace');
+    function traceMessage(message) {
+      traceOutput.textContent += `\n${message}`;
+      fetch('/result', { method: 'POST', body: traceOutput.textContent }).catch(() => {});
+    }
+    const trace = new BroadcastChannel('drift-worker-diagnostics');
+    trace.onmessage = event => traceMessage(`worker trace: ${event.data}`);
+    window.addEventListener('error', event => {
+      status.textContent += `\nWINDOW ERROR: ${event.message}`;
+    });
+    window.addEventListener('unhandledrejection', event => {
+      status.textContent += `\nUNHANDLED REJECTION: ${event.reason}`;
+    });
+  </script>
+  <script defer="" src="database_persistence_smoke.dart.js"></script>
+
+
+</body></html>
